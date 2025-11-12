@@ -3,61 +3,577 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>abcd university</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Student Ambassador - Points Poll</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --accent-color: #ff6b6b;
-            --text-color: #333;
-            --light-bg: #f8f9fa;
-            --dark-bg: #1a1a2e;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --ios-blue: #007AFF;
+            --ios-green: #34C759;
+            --ios-orange: #FF9500;
+            --ios-red: #FF3B30;
+            --ios-purple: #AF52DE;
+            --ios-pink: #FF2D55;
+            --ios-indigo: #5856D6;
+            --ios-gray: #8E8E93;
+            --ios-gray2: #AEAEB2;
+            --ios-gray3: #C7C7CC;
+            --ios-gray4: #D1D1D6;
+            --ios-gray5: #E5E5EA;
+            --ios-gray6: #F2F2F7;
+            --ios-label: #000000;
+            --ios-secondary-label: #3C3C43;
+            --ios-tertiary-label: #3C3C4399;
+            --ios-quaternary-label: #3C3C432E;
+            --ios-separator: #3C3C434A;
+            --ios-fill: #78788033;
+            --ios-fill-secondary: #78788028;
+            --ios-fill-tertiary: #7676801E;
+            --ios-background: #FFFFFF;
+            --ios-secondary-background: #F2F2F7;
+            --ios-tertiary-background: #FFFFFF;
         }
 
         body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(to bottom, #FFFFFF, #F5F5F7);
+            color: var(--ios-label);
+            min-height: 100vh;
             overflow-x: hidden;
-            color: var(--text-color);
-            background-color: #fff;
+            position: relative;
         }
 
-        /* Preloader */
-        .preloader {
+        /* Animated Background Elements */
+        .bg-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.05), rgba(88, 86, 214, 0.05));
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: float-element 20s infinite ease-in-out;
+        }
+
+        .bg-element1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .bg-element2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 5s;
+        }
+
+        .bg-element3 {
+            width: 350px;
+            height: 350px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 10s;
+        }
+
+        @keyframes float-element {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            animation: fadeInDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .header-content {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .app-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--ios-secondary-label);
+            font-weight: 400;
+            letter-spacing: -0.2px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem 3rem;
+        }
+
+        /* Card Component */
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04);
+            border-radius: 24px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        /* Poll Section */
+        .poll-section {
+            padding: 2.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+        }
+
+        .poll-question {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .poll-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .poll-option {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poll-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.05), rgba(88, 86, 214, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .poll-option:hover::before {
+            opacity: 1;
+        }
+
+        .poll-option:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border-color: rgba(0, 122, 255, 0.2);
+        }
+
+        .poll-option.selected {
+            background: rgba(0, 122, 255, 0.08);
+            border-color: var(--ios-blue);
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.1);
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .poll-option:hover .option-number {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(0, 122, 255, 0.3);
+        }
+
+        /* Rewards Section */
+        .rewards-section {
+            padding: 2.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--ios-purple), var(--ios-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .reward-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reward-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.03) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .reward-card:hover::before {
+            opacity: 1;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 122, 255, 0.1);
+        }
+
+        .reward-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .reward-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .reward-card:hover .reward-icon {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .reward-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--ios-label);
+        }
+
+        .reward-points {
+            font-size: 1rem;
+            color: var(--ios-orange);
+            font-weight: 500;
+            margin-top: 0.25rem;
+        }
+
+        .reward-description {
+            color: var(--ios-secondary-label);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        /* Guidelines Section */
+        .guidelines-section {
+            padding: 2.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s both;
+        }
+
+        .guideline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .guideline-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .guideline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .guideline-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--ios-label);
+        }
+
+        .guideline-content p {
+            color: var(--ios-secondary-label);
+            line-height: 1.5;
+            font-size: 0.95rem;
+        }
+
+        /* Links Section */
+        .links-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s both;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--ios-label);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            min-width: 280px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.05), rgba(88, 86, 214, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .link-card:hover::before {
+            opacity: 1;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-color: rgba(0, 122, 255, 0.1);
+        }
+
+        .link-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .link-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .link-content p {
+            color: var(--ios-secondary-label);
+            font-size: 0.9rem;
+        }
+
+        /* Thank You Button */
+        .thank-you-section {
+            text-align: center;
+            padding: 2rem 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s both;
+        }
+
+        .thank-you-btn {
+            background: linear-gradient(135deg, var(--ios-blue), var(--ios-indigo));
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.2);
+            letter-spacing: 0.5px;
+        }
+
+        .thank-you-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .thank-you-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .thank-you-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 122, 255, 0.3);
+        }
+
+        .thank-you-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: bottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .toast.show {
+            bottom: 30px;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            display: flex;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
             justify-content: center;
             align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
-        .preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .preloader-circle {
-            width: 60px;
-            height: 60px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
-            border-top-color: white;
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 122, 255, 0.1);
+            border-top-color: var(--ios-blue);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -66,118 +582,15 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            padding: 10px 0;
-            background: rgba(255, 255, 255, 0.98);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .logo i {
-            margin-right: 10px;
-            font-size: 1.8rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-color);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), url('https://picsum.photos/seed/universityfest/1600/900.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            z-index: 2;
-            animation: fadeInUp 1s ease;
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeInUp {
@@ -191,1465 +604,452 @@
             }
         }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: white;
-            color: var(--primary-color);
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            margin: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-        }
-
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .shape {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        .shape:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            background: white;
-            border-radius: 50%;
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape:nth-child(2) {
-            width: 120px;
-            height: 120px;
-            background: white;
-            border-radius: 50%;
-            top: 60%;
-            right: 10%;
-            animation-delay: 2s;
-        }
-
-        .shape:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            background: white;
-            border-radius: 50%;
-            bottom: 20%;
-            left: 30%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-            }
-        }
-
-        /* Section Styles */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            position: relative;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .section-title p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* About Section */
-        .about {
-            background-color: var(--light-bg);
-        }
-
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        .about-image {
-            flex: 1;
-            position: relative;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 10px;
-            z-index: -1;
-        }
-
-        /* Events Schedule Section */
-        .events {
-            background-color: white;
-        }
-
-        .timeline {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 6px;
-            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
-            border-radius: 3px;
-        }
-
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.5s ease;
-        }
-
-        .timeline-item.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background: white;
-            border: 4px solid var(--secondary-color);
-            top: 20px;
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        .left {
-            left: 0;
-        }
-
-        .right {
-            left: 50%;
-        }
-
-        .left::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            right: 30px;
-            border: medium solid white;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent white;
-        }
-
-        .right::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            top: 22px;
-            width: 0;
-            z-index: 1;
-            left: 30px;
-            border: medium solid white;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent white transparent transparent;
-        }
-
-        .right::after {
-            left: -10px;
-        }
-
-        .event-card {
-            padding: 20px 30px;
-            background: white;
-            position: relative;
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .event-date {
-            display: inline-block;
-            padding: 5px 15px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .event-title {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: var(--primary-color);
-        }
-
-        .event-time {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            color: #666;
-        }
-
-        .event-time i {
-            margin-right: 8px;
-        }
-
-        .event-description {
-            color: #666;
-            line-height: 1.5;
-        }
-
-        /* Registration Section */
-        .registration {
-            background: linear-gradient(135deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
-        }
-
-        .registration-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            overflow: hidden;
-        }
-
-        .registration-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .registration-header h3 {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .registration-form {
-            padding: 40px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-color);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .checkbox-group input {
-            margin-right: 10px;
-            width: auto;
-        }
-
-        .submit-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(106, 17, 203, 0.3);
-        }
-
-        /* Gallery Section */
-        .gallery {
-            background-color: white;
-        }
-
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-            height: 250px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            color: white;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        /* Contact Section */
-        .contact {
-            background-color: var(--light-bg);
-        }
-
-        .contact-container {
-            display: flex;
-            gap: 50px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
-            flex: 1;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 30px;
-        }
-
-        .contact-item i {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            margin-right: 20px;
-            margin-top: 5px;
-        }
-
-        .contact-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .contact-item p {
-            color: #666;
-        }
-
-        .contact-form {
-            flex: 1;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .contact-form h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--dark-bg), #16213e);
-            color: white;
-            padding: 50px 0 20px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        }
-
-        .footer-section p {
-            line-height: 1.6;
-            color: #ccc;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: #ccc;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .footer-links a:hover {
-            color: white;
-            transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--primary-color);
-            transform: translateY(-5px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #ccc;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 90%;
-            max-height: 90vh;
-            overflow: auto;
-            position: relative;
-            animation: modalFadeIn 0.3s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 2rem;
-            color: #666;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--primary-color);
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .modal-body img {
-            width: 100%;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
         /* Responsive Design */
-        @media screen and (max-width: 992px) {
-            .timeline::after {
-                left: 31px;
+        @media (max-width: 768px) {
+            .app-title {
+                font-size: 2.2rem;
             }
-
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
+            
+            .poll-question {
+                font-size: 1.8rem;
             }
-
-            .timeline-item::before {
-                left: 60px;
-                border: medium solid white;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent white transparent transparent;
-            }
-
-            .left::after, .right::after {
-                left: 21px;
-            }
-
-            .right {
-                left: 0%;
-            }
-
-            .about-content {
-                flex-direction: column;
-            }
-
-            .contact-container {
-                flex-direction: column;
-            }
-        }
-
-        @media screen and (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: white;
-                flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 50px;
-                transition: left 0.3s ease;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .form-row {
-                flex-direction: column;
-            }
-
-            .footer-content {
+            
+            .rewards-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .links-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .link-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .container {
+                padding: 0 1rem 2rem;
+            }
+            
+            .poll-section, .rewards-section, .guidelines-section {
+                padding: 1.5rem;
+            }
         }
 
-        /* Scroll to top button */
-        .scroll-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
+        /* Haptic feedback simulation */
+        @keyframes haptic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.98); }
         }
 
-        .scroll-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.3);
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: -400px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            max-width: 350px;
-            z-index: 2000;
-            transition: right 0.5s ease;
-        }
-
-        .notification.show {
-            right: 20px;
-        }
-
-        .notification-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .notification-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-        }
-
-        .notification-title {
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .notification-message {
-            color: #666;
+        .haptic {
+            animation: haptic 0.1s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader">
-        <div class="preloader-circle"></div>
+    <!-- Animated Background Elements -->
+    <div class="bg-elements">
+        <div class="bg-element bg-element1"></div>
+        <div class="bg-element bg-element2"></div>
+        <div class="bg-element bg-element3"></div>
     </div>
 
     <!-- Header -->
-    <header id="header">
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    Gujarat University Fest
-                </div>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#registration">Registration</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="menu-toggle" id="menuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+    <header>
+        <div class="header-content">
+            <h1 class="app-title">Student Ambassador</h1>
+            <p class="subtitle">Points & Rewards Program</p>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="floating-shapes">
-            <div class="shape"></div>
-            <div class="shape"></div>
-            <div class="shape"></div>
-        </div>
-        <div class="hero-content">
-            <h1>Gujarat University Annual Fest 2023</h1>
-            <p>Celebrating Excellence, Innovation, and Cultural Diversity</p>
-            <div>
-                <a href="#registration" class="btn btn-primary">Register Now</a>
-                <a href="#events" class="btn">View Events</a>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Poll Section -->
+        <section class="card poll-section">
+            <h2 class="poll-question">How many points do you have? 🎯</h2>
+            <div class="poll-options">
+                <div class="poll-option" data-value="under-100">
+                    <div class="option-label">
+                        <div class="option-number">1</div>
+                        <span>Under 100 points 🌱</span>
+                    </div>
+                </div>
+                <div class="poll-option" data-value="100-500">
+                    <div class="option-label">
+                        <div class="option-number">2</div>
+                        <span>100 to 500 points 🌿</span>
+                    </div>
+                </div>
+                <div class="poll-option" data-value="500-1000">
+                    <div class="option-label">
+                        <div class="option-number">3</div>
+                        <span>500 to 1000 points 🌳</span>
+                    </div>
+                </div>
+                <div class="poll-option" data-value="1000-1500">
+                    <div class="option-label">
+                        <div class="option-number">4</div>
+                        <span>1000 to 1500 points 🌲</span>
+                    </div>
+                </div>
+                <div class="poll-option" data-value="more-1500">
+                    <div class="option-label">
+                        <div class="option-number">5</div>
+                        <span>More than 1500 points 🏆</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>About Our Fest</h2>
-                <p>Join us for an unforgettable celebration of talent, creativity, and community spirit</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>A Celebration Like No Other</h3>
-                    <p>The Gujarat University Annual Fest is a flagship event that brings together students, faculty, and the community to celebrate the vibrant spirit of our institution. With a rich history spanning over two decades, our fest has grown to become one of the most anticipated cultural events in the region.</p>
-                    <p>This year's theme "Unity in Diversity" reflects our commitment to fostering an inclusive environment where different cultures, ideas, and talents converge to create something extraordinary.</p>
-                    <p>From electrifying performances to thought-provoking competitions, from technological showcases to artistic exhibitions, our fest offers something for everyone.</p>
-                    <a href="#events" class="btn btn-primary">Explore Events</a>
-                </div>
-                <div class="about-image">
-                    <img src="https://picsum.photos/seed/university/600/400.jpg" alt="Gujarat University Fest">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Schedule Section -->
-    <section class="events" id="events">
-        <div class="container">
-            <div class="section-title">
-                <h2>Event Schedule</h2>
-                <p>Don't miss out on these exciting events throughout the fest</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item left">
-                    <div class="event-card">
-                        <span class="event-date">Day 1 - Oct 15</span>
-                        <h3 class="event-title">Inauguration Ceremony</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 9:00 AM - 11:00 AM
-                        </div>
-                        <p class="event-description">Join us for the grand opening ceremony with special performances and guest appearances.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="event-card">
-                        <span class="event-date">Day 1 - Oct 15</span>
-                        <h3 class="event-title">Tech Innovation Expo</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 11:30 AM - 5:00 PM
-                        </div>
-                        <p class="event-description">Explore cutting-edge technology and innovative projects from students across departments.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="event-card">
-                        <span class="event-date">Day 1 - Oct 15</span>
-                        <h3 class="event-title">Cultural Night</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 6:00 PM - 10:00 PM
-                        </div>
-                        <p class="event-description">Experience a spectacular showcase of dance, music, and theatrical performances.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="event-card">
-                        <span class="event-date">Day 2 - Oct 16</span>
-                        <h3 class="event-title">Sports Championship</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 8:00 AM - 6:00 PM
-                        </div>
-                        <p class="event-description">Cheer for your favorite teams in our inter-college sports competitions.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="event-card">
-                        <span class="event-date">Day 2 - Oct 16</span>
-                        <h3 class="event-title">Art Exhibition</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 10:00 AM - 8:00 PM
-                        </div>
-                        <p class="event-description">Admire stunning artworks from talented student artists and faculty members.</p>
-                    </div>
-                </div>
-                <div class="timeline-item right">
-                    <div class="event-card">
-                        <span class="event-date">Day 3 - Oct 17</span>
-                        <h3 class="event-title">Comedy Night</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 7:00 PM - 10:00 PM
-                        </div>
-                        <p class="event-description">Laugh out loud with renowned comedians and student performers.</p>
-                    </div>
-                </div>
-                <div class="timeline-item left">
-                    <div class="event-card">
-                        <span class="event-date">Day 3 - Oct 17</span>
-                        <h3 class="event-title">Grand Finale & Awards</h3>
-                        <div class="event-time">
-                            <i class="far fa-clock"></i> 6:00 PM - 9:00 PM
-                        </div>
-                        <p class="event-description">Join us for the closing ceremony and awards distribution for competition winners.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Registration Section -->
-    <section class="registration" id="registration">
-        <div class="container">
-            <div class="section-title">
-                <h2>Register for the Fest</h2>
-                <p>Secure your spot at the most exciting event of the year</p>
-            </div>
-            <div class="registration-container">
-                <div class="registration-header">
-                    <h3>Fest Registration Form</h3>
-                    <p>Fill in the details below to register for Gujarat University Annual Fest 2023</p>
-                </div>
-                <form class="registration-form" id="registrationForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" name="lastName" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" value="abcd@gmail.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="college">College/Department</label>
-                            <input type="text" id="college" name="college" value="Gujarat University" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="year">Year of Study</label>
-                            <select id="year" name="year" required>
-                                <option value="">Select Year</option>
-                                <option value="1">1st Year</option>
-                                <option value="2">2nd Year</option>
-                                <option value="3">3rd Year</option>
-                                <option value="4">4th Year</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="events">Events Interested In</label>
-                        <select id="events" name="events" multiple required>
-                            <option value="tech">Tech Innovation Expo</option>
-                            <option value="cultural">Cultural Night</option>
-                            <option value="sports">Sports Championship</option>
-                            <option value="art">Art Exhibition</option>
-                            <option value="comedy">Comedy Night</option>
-                            <option value="all">All Events</option>
-                        </select>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="accommodation" name="accommodation">
-                        <label for="accommodation">I need accommodation arrangements</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="terms" name="terms" required>
-                        <label for="terms">I agree to the terms and conditions</label>
-                    </div>
-                    <button type="submit" class="submit-btn">Register Now</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
-        <div class="container">
-            <div class="section-title">
-                <h2>Gallery</h2>
-                <p>Glimpses from our previous fests</p>
-            </div>
-            <div class="gallery-container">
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/fest1/400/300.jpg" alt="Fest Image 1">
-                    <div class="gallery-overlay">
-                        <h4>Cultural Performances</h4>
-                        <p>Students showcasing their talents</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/fest2/400/300.jpg" alt="Fest Image 2">
-                    <div class="gallery-overlay">
-                        <h4>Tech Exhibition</h4>
-                        <p>Innovative projects on display</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/fest3/400/300.jpg" alt="Fest Image 3">
-                    <div class="gallery-overlay">
-                        <h4>Sports Events</h4>
-                        <p>Competitive sports activities</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/fest4/400/300.jpg" alt="Fest Image 4">
-                    <div class="gallery-overlay">
-                        <h4>Art Showcase</h4>
-                        <p>Creative expressions by students</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/fest5/400/300.jpg" alt="Fest Image 5">
-                    <div class="gallery-overlay">
-                        <h4>Food Festival</h4>
-                        <p>Culinary delights from across India</p>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://picsum.photos/seed/fest6/400/300.jpg" alt="Fest Image 6">
-                    <div class="gallery-overlay">
-                        <h4>Awards Ceremony</h4>
-                        <p>Celebrating excellence</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Contact Us</h2>
-                <p>Get in touch for any queries or information</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
+        <!-- Rewards Section -->
+        <section class="card rewards-section">
+            <h2 class="section-title">Reward Structure 🎁</h2>
+            <div class="rewards-grid">
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #CD7F32, #8B4513);">🥉</div>
                         <div>
-                            <h4>Location</h4>
-                            <p>Gujarat University, Navrangpura, Ahmedabad, Gujarat 380009, India</p>
+                            <div class="reward-title">Bronze: The Rookie</div>
+                            <div class="reward-points">250 points</div>
                         </div>
                     </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+91 98765 43210</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>fest@gujaratuniversity.ac.in</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-user"></i>
-                        <div>
-                            <h4>Event Coordinator</h4>
-                            <p>Manan</p>
-                            <p>abcd@gmail.com</p>
-                        </div>
+                    <div class="reward-description">
+                        Hit 250 points and earn your first digital badge, an enamel mug, and a ₹500 e-voucher.
                     </div>
                 </div>
-                <div class="contact-form">
-                    <h3>Send us a Message</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="contactName">Your Name</label>
-                            <input type="text" id="contactName" name="contactName" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="contactEmail">Your Email</label>
-                            <input type="email" id="contactEmail" name="contactEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>About Gujarat University</h3>
-                    <p>Gujarat University is a premier institution of higher learning in India, committed to excellence in education, research, and innovation. Our annual fest is a testament to our vibrant campus culture and community spirit.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #C0C0C0, #808080);">🥈</div>
+                        <div>
+                            <div class="reward-title">Silver: The Rising Star</div>
+                            <div class="reward-points">450 points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 450 points and unlock a digital badge, diary, and ₹1000 E-voucher.
                     </div>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#events">Events</a></li>
-                        <li><a href="#registration">Registration</a></li>
-                        <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Events</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Tech Innovation Expo</a></li>
-                        <li><a href="#">Cultural Night</a></li>
-                        <li><a href="#">Sports Championship</a></li>
-                        <li><a href="#">Art Exhibition</a></li>
-                        <li><a href="#">Comedy Night</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact Info</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Gujarat University, Ahmedabad, Gujarat, India</p>
-                    <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
-                    <p><i class="fas fa-envelope"></i> fest@gujaratuniversity.ac.in</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Gujarat University Annual Fest. All Rights Reserved. Designed by Manan</p>
-            </div>
-        </div>
-    </footer>
 
-    <!-- Scroll to Top Button -->
-    <div class="scroll-top" id="scrollTop">
-        <i class="fas fa-arrow-up"></i>
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #FFD700, #FFA500);">🥇</div>
+                        <div>
+                            <div class="reward-title">Gold: The Achiever</div>
+                            <div class="reward-points">650 points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 650 points and score a digital badge, sipper, and ₹1500 e-voucher.
+                    </div>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #0F52BA, #0066CC);">💎</div>
+                        <div>
+                            <div class="reward-title">Sapphire: The Trailblazer</div>
+                            <div class="reward-points">650+ points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 650+ points in the first 3 months to win a digital badge + 1-month YouTube Premium subscription.
+                    </div>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #E5E4E2, #BCC6CC);">⚡</div>
+                        <div>
+                            <div class="reward-title">Platinum: The Strategist</div>
+                            <div class="reward-points">850 points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 850 points and get a digital badge, a power bank, and ₹2000 e-voucher.
+                    </div>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #B9F2FF, #00FFFF);">🧠</div>
+                        <div>
+                            <div class="reward-title">Diamond: The Mastermind</div>
+                            <div class="reward-points">1000 points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 1000 points and you will get a digital badge, AMA with Googlers, a certificate & ₹2500 e-voucher.
+                    </div>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #FF6B6B, #C92A2A);">🚀</div>
+                        <div>
+                            <div class="reward-title">Titan: The Elite</div>
+                            <div class="reward-points">1000+ points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 1000+ points + unique initiatives and you will receive a unique digital badge, laptop bag and ₹5,000 e-voucher.
+                    </div>
+                </div>
+
+                <div class="reward-card">
+                    <div class="reward-header">
+                        <div class="reward-icon" style="background: linear-gradient(135deg, #9D4EDD, #5A189A);">✨</div>
+                        <div>
+                            <div class="reward-title">Celestial: The Legend</div>
+                            <div class="reward-points">1500+ points</div>
+                        </div>
+                    </div>
+                    <div class="reward-description">
+                        Hit 1500+ points with unique initiatives and you will receive a unique digital badge, Google Pixel Buds, and ₹10,000 e-voucher.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guidelines Section -->
+        <section class="card guidelines-section">
+            <h2 class="section-title">Program Guidelines 📋</h2>
+            <div class="guideline-item">
+                <div class="guideline-icon">
+                    <span class="material-symbols-rounded">qr_code_scanner</span>
+                </div>
+                <div class="guideline-content">
+                    <h3>Engagements</h3>
+                    <p>This metric directly reflects the genuine scans of your unique Prompt QR code.</p>
+                </div>
+            </div>
+            <div class="guideline-item">
+                <div class="guideline-icon">
+                    <span class="material-symbols-rounded">emoji_events</span>
+                </div>
+                <div class="guideline-content">
+                    <h3>Monthly Badge Awards</h3>
+                    <p>Digital badges will be awarded at the end of each month based on your verified Final Score.</p>
+                </div>
+            </div>
+            <div class="guideline-item">
+                <div class="guideline-icon">
+                    <span class="material-symbols-rounded">calculate</span>
+                </div>
+                <div class="guideline-content">
+                    <h3>Reward Calculation</h3>
+                    <p>Final rewards are calculated monthly after a detailed verification of unique student details and successful Gemini prompt runs. Your verified score and standing will then be reflected on the App Home Screen.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Links Section -->
+        <section class="links-section">
+            <a href="https://chat.whatsapp.com/DzAiDrWvdOWJuxhFKKsDrt?mode=wwt" target="_blank" class="link-card card">
+                <div class="link-icon" style="background: linear-gradient(135deg, #25D366, #128C7E);">
+                    <span class="material-symbols-rounded">groups</span>
+                </div>
+                <div class="link-content">
+                    <h3>Join WhatsApp Group</h3>
+                    <p>Connect with other ambassadors</p>
+                </div>
+            </a>
+            <a href="https://www.jio.com/google-gemini-offer/" target="_blank" class="link-card card">
+                <div class="link-icon" style="background: linear-gradient(135deg, var(--ios-blue), var(--ios-purple));">
+                    <span class="material-symbols-rounded">smart_toy</span>
+                </div>
+                <div class="link-content">
+                    <h3>Free Gemini Subscription</h3>
+                    <p>Get 18 months free access</p>
+                </div>
+            </a>
+        </section>
+
+        <!-- Thank You Button -->
+        <section class="thank-you-section">
+            <button class="thank-you-btn" id="thankYouBtn">
+                Thank You! 🙏
+            </button>
+        </section>
     </div>
 
-    <!-- Notification -->
-    <div class="notification" id="notification">
-        <div class="notification-header">
-            <div class="notification-icon">
-                <i class="fas fa-check"></i>
-            </div>
-            <div>
-                <div class="notification-title">Success!</div>
-            </div>
-        </div>
-        <div class="notification-message">
-            Your message has been sent successfully. We'll get back to you soon!
-        </div>
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="material-symbols-rounded">check_circle</span>
+        <span id="toastMessage">Thank you for your response!</span>
     </div>
 
-    <!-- Modal for Gallery -->
-    <div class="modal" id="imageModal">
-        <div class="modal-content">
-            <span class="modal-close" id="modalClose">&times;</span>
-            <div class="modal-body">
-                <img id="modalImage" src="" alt="Gallery Image">
-                <h3 id="modalTitle"></h3>
-                <p id="modalDescription"></p>
-            </div>
-        </div>
+    <!-- Loading Spinner -->
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
     </div>
 
     <script>
-        // Preloader
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.querySelector('.preloader').classList.add('hidden');
+        // Poll functionality
+        let selectedOption = null;
+        const pollOptions = document.querySelectorAll('.poll-option');
+        
+        pollOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove previous selection
+                pollOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selection to clicked option
+                this.classList.add('selected');
+                selectedOption = this.dataset.value;
+                
+                // Haptic feedback simulation
+                this.classList.add('haptic');
+                setTimeout(() => this.classList.remove('haptic'), 100);
+                
+                // Show toast
+                showToast(`You selected: ${this.querySelector('span').textContent}`);
+                
+                // Animate selection
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Thank you button functionality
+        document.getElementById('thankYouBtn').addEventListener('click', function() {
+            // Haptic feedback
+            this.classList.add('haptic');
+            setTimeout(() => this.classList.remove('haptic'), 100);
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'flex';
+            
+            // Simulate processing
+            setTimeout(() => {
+                document.getElementById('loading').style.display = 'none';
+                
+                // Open link in new tab
+                window.open('https://aiskillshouse.com/student/qr-mediator.html?uid=1766&promptId=21', '_blank');
+                
+                // Show thank you message
+                showToast('Thank you for participating! 🎉');
             }, 1000);
         });
 
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
+        // Toast notification function
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
 
-        menuToggle.addEventListener('click', function() {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.classList.remove('active');
+        // Add hover effects with smooth transitions
+        const rewardCards = document.querySelectorAll('.reward-card');
+        rewardCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.querySelector('.reward-icon').style.transform = 'scale(1.05) rotate(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.querySelector('.reward-icon').style.transform = 'scale(1) rotate(0deg)';
             });
         });
 
-        // Header scroll effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-
-            // Show/hide scroll to top button
-            const scrollTop = document.getElementById('scrollTop');
-            if (window.scrollY > 300) {
-                scrollTop.classList.add('active');
-            } else {
-                scrollTop.classList.remove('active');
+        // Keyboard navigation for poll
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '1' && e.key <= '5') {
+                const index = parseInt(e.key) - 1;
+                if (pollOptions[index]) {
+                    pollOptions[index].click();
+                }
             }
         });
 
-        // Scroll to top
-        document.getElementById('scrollTop').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        // Add parallax effect to background elements on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const elements = document.querySelectorAll('.bg-element');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            elements.forEach((element, index) => {
+                const speed = (index + 1) * 20;
+                const xOffset = (x - 0.5) * speed;
+                const yOffset = (y - 0.5) * speed;
+                
+                element.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
             });
         });
 
-        // Timeline animation on scroll
+        // Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
-        const observer = new IntersectionObserver(function(entries) {
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            observer.observe(item);
+        // Observe all sections for animation
+        document.querySelectorAll('.card').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            observer.observe(section);
         });
 
-        // Registration form submission
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            // Show notification
-            showNotification('Registration Successful!', 'Thank you for registering. We will send you a confirmation email shortly.');
-            
-            // Reset form
-            this.reset();
-            
-            // Log form data (in a real application, this would be sent to a server)
-            console.log('Registration data:', data);
-        });
-
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form values
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                data[key] = value;
-            });
-            
-            // Show notification
-            showNotification('Message Sent!', 'Your message has been sent successfully. We\'ll get back to you soon!');
-            
-            // Reset form
-            this.reset();
-            
-            // Log form data (in a real application, this would be sent to a server)
-            console.log('Contact form data:', data);
-        });
-
-        // Gallery modal
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalClose = document.getElementById('modalClose');
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const img = this.querySelector('img');
-                const overlay = this.querySelector('.gallery-overlay');
-                
-                modalImage.src = img.src;
-                modalTitle.textContent = overlay.querySelector('h4').textContent;
-                modalDescription.textContent = overlay.querySelector('p').textContent;
-                
-                modal.classList.add('active');
-            });
-        });
-
-        modalClose.addEventListener('click', function() {
-            modal.classList.remove('active');
-        });
-
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-            }
-        });
-
-        // Notification function
-        function showNotification(title, message) {
-            const notification = document.getElementById('notification');
-            const notificationTitle = notification.querySelector('.notification-title');
-            const notificationMessage = notification.querySelector('.notification-message');
-            
-            notificationTitle.textContent = title;
-            notificationMessage.textContent = message;
-            
-            notification.classList.add('show');
-            
-            setTimeout(function() {
-                notification.classList.remove('show');
-            }, 5000);
-        }
-
-        // Smooth scroll for anchor links
+        // Add smooth scroll behavior
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId !== '#') {
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const offsetTop = targetElement.offsetTop - 70;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
 
-        // Add animation to elements on scroll
-        const animateOnScroll = function() {
-            const elements = document.querySelectorAll('.about-text, .about-image, .gallery-item, .contact-item');
-            
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementBottom = element.getBoundingClientRect().bottom;
-                
-                if (elementTop < window.innerHeight && elementBottom > 0) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
+        // Initialize page with entrance animations
+        window.addEventListener('load', () => {
+            // Animate poll options on load
+            pollOptions.forEach((option, index) => {
+                option.style.opacity = '0';
+                option.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    option.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                    option.style.opacity = '1';
+                    option.style.transform = 'translateY(0)';
+                }, 100 * index);
             });
-        };
-
-        // Initial setup for animation
-        document.querySelectorAll('.about-text, .about-image, .gallery-item, .contact-item').forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         });
 
-        // Run animation on scroll
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
-
-        // Counter animation for statistics (if needed in future)
-        const animateCounter = function(element, target, duration = 2000) {
-            let start = 0;
-            const increment = target / (duration / 16);
-            
-            const timer = setInterval(() => {
-                start += increment;
-                if (start >= target) {
-                    element.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    element.textContent = Math.floor(start);
-                }
-            }, 16);
-        };
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', function() {
-            const scrolled = window.pageYOffset;
-            const parallax = document.querySelector('.hero');
-            const speed = 0.5;
-            
-            if (parallax) {
-                parallax.style.transform = `translateY(${scrolled * speed}px)`;
-            }
-        });
+        // Add touch feedback for mobile
+        if ('ontouchstart' in window) {
+            document.querySelectorAll('.poll-option, .reward-card, .link-card, .thank-you-btn').forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                element.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        }
     </script>
 </body>
 </html>
