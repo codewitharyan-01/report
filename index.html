@@ -1,706 +1,1253 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Security - GTU Question Bank</title>
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ascendant Global Credit Group: Website Redesign Strategy</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .question-card { transition: all 0.3s ease; }
-        .question-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .answer-section { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+        :root {
+            --primary: #1e293b;
+            --secondary: #475569;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --neutral: #f8fafc;
+            --base-100: #ffffff;
+            --base-200: #f1f5f9;
+            --base-300: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary);
+            background-color: var(--neutral);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--base-100);
+            border-right: 1px solid var(--base-300);
+            z-index: 50;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .hero-title {
+            grid-column: 1 / -1;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            font-weight: 600;
+            font-style: italic;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            grid-column: 1 / -1;
+            font-size: 1.25rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+        
+        .hero-visual {
+            grid-column: 1 / -1;
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, #1e293b 0%, #475569 100%);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--base-300), transparent);
+            margin: 4rem 0;
+        }
+        
+        .insight-card {
+            background: var(--base-100);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--base-300);
+        }
+        
+        .citation {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-decoration: none;
+            margin-left: 0.25rem;
+        }
+        
+        .citation:hover {
+            background: var(--accent-light);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .toc-link.sub {
+            font-size: 0.875rem;
+            padding-left: 2rem;
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-<base target="_blank">
+  <base target="_blank">
 </head>
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center">
-                        <i class="fas fa-graduation-cap text-2xl text-indigo-600 mr-3"></i>
-                        <h1 class="text-xl font-bold text-gray-800">GTU Study Guide</h1>
-                    </a>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="index.html" class="text-gray-600 hover:text-indigo-600 transition-colors">Home</a>
-                </div>
-            </div>
-        </div>
+
+  <body>
+    <!-- Table of Contents -->
+    <nav class="toc-fixed">
+      <div class="mb-8">
+        <h3 class="serif text-lg font-semibold mb-4">Contents</h3>
+        <a href="#executive-summary" class="toc-link">Executive Summary</a>
+        <a href="#competitive-landscape" class="toc-link">Competitive Landscape</a>
+        <a href="#current-state" class="toc-link">Current State Analysis</a>
+        <a href="#recommendations" class="toc-link">Strategic Recommendations</a>
+        <a href="#feature-ideation" class="toc-link">Feature Ideation Vault</a>
+        <a href="#ux-strategy" class="toc-link">UX Strategy</a>
+        <a href="#implementation" class="toc-link">Implementation Roadmap</a>
+      </div>
+
+      <div class="text-xs text-gray-500 border-t pt-4">
+        <p class="mb-2">Research Report</p>
+        <p>Ascendant Global Credit Group</p>
+        <p class="mt-2">Digital Transformation</p>
+      </div>
     </nav>
 
-    <!-- Header -->
-    <header class="bg-gradient-to-r from-red-600 to-pink-600 text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl font-bold mb-4">Cyber Security</h1>
-            <p class="text-xl">BE Semester V - Question Bank with Easy Explanations</p>
-            <div class="mt-6">
-                <span class="bg-white text-red-600 px-4 py-2 rounded-full font-semibold">Total Marks: 70 | Time: 2.5 Hours</span>
-            </div>
-        </div>
-    </header>
-
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="mb-8">
-            <div class="bg-white rounded-lg shadow-lg p-6">
-                <h2 class="text-2xl font-bold text-gray-800 mb-4">
-                    <i class="fas fa-info-circle text-red-600 mr-2"></i>
-                    Instructions for Students
-                </h2>
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="bg-white">
+        <div class="max-w-7xl mx-auto px-8 py-16">
+          <div class="hero-grid">
+            <h1 class="hero-title serif">
+              Ascendant Global Credit Group:
+              <br/>
+              <span class="text-blue-600">Website Redesign Strategy</span>
+            </h1>
+            <p class="hero-subtitle">
+              Transforming digital presence through competitive intelligence and user-centric design excellence
+            </p>
+
+            <div class="hero-visual">
+              <img src="https://kimi-web-img.moonshot.cn/img/embed-ssl.wistia.com/10e8d5891fe5de489b90272542e67a7e734ffb76.webp" alt="Digital banking interface" class="w-full h-full object-cover opacity-20" size="large" aspect="wide" style="photo" query="digital banking interface" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              <div class="absolute inset-0 bg-gradient-to-br from-slate-900/60 to-transparent"></div>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center text-white">
+                  <div class="text-6xl mb-4">
+                    <i class="fas fa-chart-line"></i>
+                  </div>
+                  <h3 class="text-2xl font-semibold mb-2">Digital Excellence</h3>
+                  <p class="text-lg opacity-90">Redefining financial services through superior user experience</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section id="executive-summary" class="py-16 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Executive Summary &amp; Strategic Vision</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="insight-card">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-target"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-3">Project Goals</h3>
+              <p class="text-gray-600">Increase user conversions, improve UX, and modernize platform design for sophisticated clientele</p>
+            </div>
+
+            <div class="insight-card">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-search"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-3">Key Findings</h3>
+              <p class="text-gray-600">HNWIs expect concierge-like onboarding with human touchpoints and hyper-personalization<a href="#ref-326" class="citation">326</a>
+                <a href="#ref-320" class="citation">320</a>
+              </p>
+            </div>
+
+            <div class="insight-card">
+              <div class="text-blue-600 text-3xl mb-4">
+                <i class="fas fa-compass"></i>
+              </div>
+              <h3 class="font-bold text-xl mb-3">Strategic Direction</h3>
+              <p class="text-gray-600">Hybrid digital experience combining fintech efficiency with private bank personalization</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-lg p-8 shadow-sm border">
+            <h3 class="serif text-2xl font-semibold mb-6">Strategic Vision Statement</h3>
+            <p class="text-lg leading-relaxed mb-6">
+              Create a <strong>hybrid digital experience</strong> that combines the efficiency and scalability of a modern fintech platform with the personalized, high-touch service of a private bank. This involves implementing <strong>streamlined, AI-powered onboarding</strong>, intuitive document upload processes, and clear, goal-based dashboards that serve as central hubs for client financial journeys.
+            </p>
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-semibold mb-3 text-blue-600">For HNWIs &amp; Accredited Investors</h4>
+                <ul class="space-y-2 text-gray-700">
+                  <li>• Exclusive private credit opportunities</li>
+                  <li>• Personalized wealth management services</li>
+                  <li>• Concierge-style financial guidance</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-3 text-green-600">For SMEs &amp; Businesses</h4>
+                <ul class="space-y-2 text-gray-700">
+                  <li>• Alternative financing solutions</li>
+                  <li>• Streamlined application processes</li>
+                  <li>• Embedded finance capabilities</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Competitive Landscape -->
+      <section id="competitive-landscape" class="py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Competitive Landscape &amp; Benchmarking</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+
+          <div class="mb-12">
+            <h3 class="serif text-2xl font-semibold mb-6">Key Competitor Categories</h3>
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 class="font-bold text-lg mb-3 text-red-600">Direct Regional</h4>
+                <ul class="space-y-2 text-sm text-gray-600">
+                  <li>• Kilde.sg - Private credit platform<a href="#ref-3" class="citation">3</a>
+                  </li>
+                  <li>• Validus Capital - SME financing</li>
+                  <li>• Funding Societies - P2P lending</li>
+                  <li>• Trillion Credit - Business loans<a href="#ref-201" class="citation">201</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 class="font-bold text-lg mb-3 text-purple-600">Global Platforms</h4>
+                <ul class="space-y-2 text-sm text-gray-600">
+                  <li>• SoFi - Digital lending<a href="#ref-368" class="citation">368</a>
+                  </li>
+                  <li>• Wealthfront - Robo-advisory</li>
+                  <li>• Arta Finance - Wealth management<a href="#ref-336" class="citation">336</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 class="font-bold text-lg mb-3 text-green-600">Local Institutions</h4>
+                <ul class="space-y-2 text-sm text-gray-600">
+                  <li>• DBS Bank - SME platform<a href="#ref-371" class="citation">371</a>
+                  </li>
+                  <li>• OCBC Bank - Mobile banking<a href="#ref-356" class="citation">356</a>
+                  </li>
+                  <li>• Maybank - Traditional banking<a href="#ref-199" class="citation">199</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white rounded-lg p-8 border border-gray-200">
+              <h3 class="serif text-xl font-semibold mb-6">Onboarding Flow Analysis</h3>
+              <div class="space-y-4">
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold">SoFi&#39;s Integrated Approach</h4>
+                    <p class="text-sm text-gray-600">Fully digital loan application with pre-qualification without credit impact</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-green-600 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold">Kilde.sg&#39;s Singpass Integration</h4>
+                    <p class="text-sm text-gray-600">Streamlined identity verification using national digital ID system<a href="#ref-347" class="citation">347</a>
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-purple-600 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold">Arta&#39;s Personalization</h4>
+                    <p class="text-sm text-gray-600">AI-powered portfolio insights and tailored &#34;starter packs&#34;<a href="#ref-320" class="citation">320</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-lg p-8 border border-gray-200">
+              <h3 class="serif text-xl font-semibold mb-6">Dashboard Design Principles</h3>
+              <div class="space-y-4">
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-red-600 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold">Singapore Fintech Principles</h4>
+                    <p class="text-sm text-gray-600">Modular cards with integrated actions and smart defaults<a href="#ref-444" class="citation">444</a>
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-indigo-600 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold">Investec&#39;s HNWI Focus</h4>
+                    <p class="text-sm text-gray-600">Holistic wealth view with real-time analytics and customization</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-orange-600 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold">OCBC&#39;s Mobile-First Approach</h4>
+                    <p class="text-sm text-gray-600">Award-winning design with intuitive gestures and thumb-friendly navigation<a href="#ref-446" class="citation">446</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Current State Analysis -->
+      <section id="current-state" class="py-16 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Current State Analysis</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+              <div class="bg-white rounded-lg p-8 shadow-sm border mb-8">
+                <h3 class="serif text-2xl font-semibold mb-6">Company Profile &amp; Target Audience</h3>
+                <p class="text-gray-700 mb-6">
+                  Ascendant Global Credit Group positions as a strategic financial introducer, connecting clients with alternative lenders, venture debt funds, and investment opportunities<a href="#ref-354" class="citation">354</a>. The company targets two distinct segments:
+                </p>
+
                 <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <h3 class="font-semibold text-gray-700 mb-2">Exam Pattern:</h3>
-                        <ul class="space-y-1 text-gray-600">
-                            <li>• Attempt all questions</li>
-                            <li>• Make suitable assumptions where necessary</li>
-                            <li>• Figures indicate full marks</li>
-                            <li>• Simple calculators are allowed</li>
-                        </ul>
+                  <div class="bg-blue-50 rounded-lg p-6">
+                    <h4 class="font-semibold text-blue-800 mb-3">
+                      <i class="fas fa-user-tie mr-2"></i>HNWIs &amp; Accredited Investors
+                    </h4>
+                    <ul class="text-sm space-y-1 text-blue-700">
+                      <li>• Private credit investments<a href="#ref-345" class="citation">345</a>
+                      </li>
+                      <li>• Alternative asset access</li>
+                      <li>• Personalized wealth management</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-green-50 rounded-lg p-6">
+                    <h4 class="font-semibold text-green-800 mb-3">
+                      <i class="fas fa-building mr-2"></i>SMEs &amp; Businesses
+                    </h4>
+                    <ul class="text-sm space-y-1 text-green-700">
+                      <li>• Invoice financing<a href="#ref-361" class="citation">361</a>
+                      </li>
+                      <li>• Purchase order financing</li>
+                      <li>• Alternative lending solutions</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-lg p-8 shadow-sm border">
+                <h3 class="serif text-2xl font-semibold mb-6">Current Pain Points</h3>
+                <div class="space-y-6">
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-exclamation text-red-600 text-sm"></i>
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-700 mb-2">Marking Scheme:</h3>
-                        <ul class="space-y-1 text-gray-600">
-                            <li>• Part (a): 3 marks each</li>
-                            <li>• Part (b): 4 marks each</li>
-                            <li>• Part (c): 7 marks each</li>
-                            <li>• Total: 5 questions × 14 marks = 70 marks</li>
-                        </ul>
+                      <h4 class="font-semibold mb-2">Lack of Interactive Elements</h4>
+                      <p class="text-gray-600 text-sm">Static website with limited engagement opportunities and personalized content</p>
                     </div>
+                  </div>
+
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-route text-red-600 text-sm"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold mb-2">Unclear Application Journey</h4>
+                      <p class="text-gray-600 text-sm">No step-by-step guide to the application process, creating uncertainty</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start space-x-4">
+                    <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <i class="fas fa-users text-red-600 text-sm"></i>
+                    </div>
+                    <div>
+                      <h4 class="font-semibold mb-2">Limited Social Proof</h4>
+                      <p class="text-gray-600 text-sm">Missing client testimonials and case studies to build trust</p>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+
+            <div class="space-y-6">
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 class="font-semibold mb-4 text-center">Current Challenges</h4>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Onboarding Complexity</span>
+                    <div class="w-16 bg-gray-200 rounded-full h-2">
+                      <div class="bg-red-500 h-2 rounded-full" style="width: 75%"></div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">User Engagement</span>
+                    <div class="w-16 bg-gray-200 rounded-full h-2">
+                      <div class="bg-yellow-500 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Mobile Experience</span>
+                    <div class="w-16 bg-gray-200 rounded-full h-2">
+                      <div class="bg-orange-500 h-2 rounded-full" style="width: 65%"></div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Visual Modernity</span>
+                    <div class="w-16 bg-gray-200 rounded-full h-2">
+                      <div class="bg-red-500 h-2 rounded-full" style="width: 70%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-lg p-6 border border-gray-200">
+                <h4 class="font-semibold mb-4 text-center">Target Segments</h4>
+                <div class="space-y-4">
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600">HNWIs</div>
+                    <div class="text-sm text-gray-500">High-Net-Worth Individuals</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600">SMEs</div>
+                    <div class="text-sm text-gray-500">Small &amp; Medium Enterprises</div>
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600">Accredited</div>
+                    <div class="text-sm text-gray-500">Accredited Investors</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <!-- Question Bank -->
-        <div class="space-y-8">
-            <!-- Q.1 -->
-            <div class="question-card bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="bg-red-600 text-white p-6">
-                    <h2 class="text-2xl font-bold">Q.1 [14 Marks]</h2>
+      <div class="section-divider"></div>
+
+      <!-- Strategic Recommendations -->
+      <section id="recommendations" class="py-16">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Strategic Recommendations</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+
+          <div class="mb-12">
+            <div class="grid lg:grid-cols-3 gap-8">
+              <div class="bg-green-50 rounded-lg p-8 border border-green-200">
+                <div class="text-green-600 text-4xl mb-4">
+                  <i class="fas fa-copy"></i>
                 </div>
-                
-                <!-- Q.1 (a) -->
-                <div class="border-b border-gray-200">
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (a) Write short note on Indian IT ACT 2000. [3 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="bg-white p-4 rounded-lg shadow-sm">
-                                <h4 class="font-bold text-red-600 mb-3">Indian IT ACT 2000</h4>
-                                <div class="space-y-3 text-sm text-gray-700">
-                                    <p><strong>What it is:</strong> The Information Technology Act, 2000 is India's main law for dealing with cyber crimes and electronic commerce. It's like a rulebook for using computers and the internet in India.</p>
-                                    
-                                    <div class="bg-blue-50 p-3 rounded">
-                                        <h5 class="font-semibold text-blue-800 mb-2">Key Features:</h5>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li>Legal recognition of electronic documents and digital signatures</li>
-                                            <li>Defines cyber crimes and their punishments</li>
-                                            <li>Establishment of CERT-In (Computer Emergency Response Team)</li>
-                                            <li>Regulates certifying authorities for digital certificates</li>
-                                        </ul>
-                                    </div>
+                <h3 class="serif text-xl font-semibold mb-4 text-green-800">What to Copy</h3>
+                <ul class="space-y-3 text-green-700">
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-check mt-1 text-xs"></i>
+                    <span class="text-sm">Streamlined onboarding with human touchpoints</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-check mt-1 text-xs"></i>
+                    <span class="text-sm">Intuitive drag-and-drop document upload</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-check mt-1 text-xs"></i>
+                    <span class="text-sm">Clear, goal-based dashboard design</span>
+                  </li>
+                </ul>
+              </div>
 
-                                    <div class="bg-green-50 p-3 rounded">
-                                        <h5 class="font-semibold text-green-800 mb-2">Important Sections:</h5>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li><strong>Section 43:</strong> Penalty for damage to computer systems</li>
-                                            <li><strong>Section 66:</strong> Computer related offenses</li>
-                                            <li><strong>Section 67:</strong> Publishing obscene information</li>
-                                            <li><strong>Section 72:</strong> Breach of confidentiality</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="bg-yellow-50 p-3 rounded">
-                                        <h5 class="font-semibold text-yellow-800 mb-2">Why it matters:</h5>
-                                        <p>It provides legal framework for safe and secure digital transactions, protects against cyber crimes, and promotes e-commerce in India.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              <div class="bg-red-50 rounded-lg p-8 border border-red-200">
+                <div class="text-red-600 text-4xl mb-4">
+                  <i class="fas fa-ban"></i>
                 </div>
+                <h3 class="serif text-xl font-semibold mb-4 text-red-800">What to Avoid</h3>
+                <ul class="space-y-3 text-red-700">
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-times mt-1 text-xs"></i>
+                    <span class="text-sm">Overly complex and lengthy forms</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-times mt-1 text-xs"></i>
+                    <span class="text-sm">Generic and impersonal user journeys</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-times mt-1 text-xs"></i>
+                    <span class="text-sm">Outdated design and poor mobile optimization</span>
+                  </li>
+                </ul>
+              </div>
 
-                <!-- Q.1 (b) -->
-                <div class="border-b border-gray-200">
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (b) What is the difference between Threat, Vulnerability, and Risk and Computer Virus? [4 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <!-- Threat, Vulnerability, Risk -->
-                                <div class="bg-white p-4 rounded-lg shadow-sm">
-                                    <h4 class="font-bold text-blue-600 mb-3">Threat, Vulnerability & Risk</h4>
-                                    <div class="space-y-3 text-sm">
-                                        <div class="bg-red-50 p-3 rounded border-l-4 border-red-500">
-                                            <h5 class="font-semibold text-red-800">Threat</h5>
-                                            <p class="text-gray-700">A potential danger that could exploit a vulnerability. Like a thief trying to break into your house.</p>
-                                            <div class="mt-2 text-xs bg-white p-2 rounded">
-                                                <strong>Examples:</strong> Hacker, malware, natural disaster
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="bg-yellow-50 p-3 rounded border-l-4 border-yellow-500">
-                                            <h5 class="font-semibold text-yellow-800">Vulnerability</h5>
-                                            <p class="text-gray-700">A weakness in your system that a threat could exploit. Like having a broken window in your house.</p>
-                                            <div class="mt-2 text-xs bg-white p-2 rounded">
-                                                <strong>Examples:</strong> Weak password, unpatched software, open port
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-500">
-                                            <h5 class="font-semibold text-orange-800">Risk</h5>
-                                            <p class="text-gray-700">The chance that a threat will successfully exploit a vulnerability and cause damage. Like the probability of the thief actually breaking in.</p>
-                                            <div class="mt-2 text-xs bg-white p-2 rounded">
-                                                <strong>Formula:</strong> Risk = Threat × Vulnerability × Impact
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Computer Virus -->
-                                <div class="bg-white p-4 rounded-lg shadow-sm">
-                                    <h4 class="font-bold text-green-600 mb-3">Computer Virus</h4>
-                                    <div class="space-y-3 text-sm">
-                                        <div class="bg-green-50 p-3 rounded">
-                                            <h5 class="font-semibold text-green-800">What is a Virus?</h5>
-                                            <p class="text-gray-700">A computer virus is like a biological virus - it's a malicious program that attaches itself to other programs and spreads from one computer to another, causing damage.</p>
-                                        </div>
-                                        
-                                        <div class="bg-blue-50 p-3 rounded">
-                                            <h5 class="font-semibold text-blue-800">How it works:</h5>
-                                            <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                                <li>Attaches to executable files</li>
-                                                <li>Activates when host program runs</li>
-                                                <li>Replicates and spreads to other files</li>
-                                                <li>Can damage files, steal data, or crash systems</li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="bg-purple-50 p-3 rounded">
-                                            <h5 class="font-semibold text-purple-800">Types:</h5>
-                                            <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                                <li><strong>File Virus:</strong> Infects executable files</li>
-                                                <li><strong>Boot Sector Virus:</strong> Infects startup files</li>
-                                                <li><strong>Macro Virus:</strong> Infects documents</li>
-                                                <li><strong>Polymorphic Virus:</strong> Changes its code</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              <div class="bg-blue-50 rounded-lg p-8 border border-blue-200">
+                <div class="text-blue-600 text-4xl mb-4">
+                  <i class="fas fa-crown"></i>
                 </div>
-
-                <!-- Q.1 (c) -->
-                <div>
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (c) What is the need of Demilitarized Zone (DMZ)? Explain with example. [7 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
-                                <h4 class="font-bold text-red-600 mb-2">Demilitarized Zone (DMZ)</h4>
-                                <p class="text-gray-700 text-sm mb-3">A DMZ is like a neutral area between two countries at war. In networking, it's a special network zone that sits between your internal network (trusted) and the internet (untrusted), providing an extra layer of security.</p>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <!-- Why DMZ is Needed -->
-                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                    <h4 class="font-bold text-blue-600 mb-3">Why DMZ is Needed</h4>
-                                    <div class="space-y-2 text-sm text-gray-700">
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">1. Extra Security Layer</h5>
-                                            <p>Creates buffer zone between internet and internal network</p>
-                                        </div>
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">2. Public Services</h5>
-                                            <p>Allows external access to public services while protecting internal network</p>
-                                        </div>
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">3. Controlled Access</h5>
-                                            <p>Limits what external users can see and access</p>
-                                        </div>
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">4. Attack Isolation</h5>
-                                            <p>If DMZ is compromised, internal network remains protected</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Example Setup -->
-                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                                    <h4 class="font-bold text-green-600 mb-3">Real-World Example</h4>
-                                    <div class="space-y-3 text-sm text-gray-700">
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">Company XYZ Setup:</h5>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-center">
-                                                    <i class="fas fa-globe text-blue-500 mr-2"></i>
-                                                    <span><strong>Internet:</strong> Untrusted external network</span>
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <i class="fas fa-shield-alt text-red-500 mr-2"></i>
-                                                    <span><strong>Firewall 1:</strong> Filters incoming traffic</span>
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <i class="fas fa-server text-yellow-500 mr-2"></i>
-                                                    <span><strong>DMZ:</strong> Web server, Email server</span>
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <i class="fas fa-shield-alt text-red-500 mr-2"></i>
-                                                    <span><strong>Firewall 2:</strong> Protects internal network</span>
-                                                </div>
-                                                <div class="flex items-center">
-                                                    <i class="fas fa-building text-green-500 mr-2"></i>
-                                                    <span><strong>Internal Network:</strong> Employee computers, databases</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="bg-yellow-100 p-3 rounded">
-                                            <h5 class="font-semibold text-yellow-800">How it works:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li>External users access web server in DMZ</li>
-                                                <li>DMZ servers can communicate with internal database if needed</li>
-                                                <li>Internal users access internet through both firewalls</li>
-                                                <li>If web server is hacked, internal network is still protected</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 bg-gray-100 p-4 rounded-lg">
-                                <h4 class="font-bold text-gray-800 mb-2">DMZ Benefits:</h4>
-                                <div class="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
-                                    <div class="bg-white p-3 rounded">
-                                        <strong>Security:</strong> Multiple layers of protection
-                                    </div>
-                                    <div class="bg-white p-3 rounded">
-                                        <strong>Flexibility:</strong> Public services accessible
-                                    </div>
-                                    <div class="bg-white p-3 rounded">
-                                        <strong>Control:</strong> Monitored and filtered access
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3 class="serif text-xl font-semibold mb-4 text-blue-800">What to Dominate</h3>
+                <ul class="space-y-3 text-blue-700">
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-star mt-1 text-xs"></i>
+                    <span class="text-sm">End-to-end platform integration</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-star mt-1 text-xs"></i>
+                    <span class="text-sm">AI-powered personalized recommendations</span>
+                  </li>
+                  <li class="flex items-start space-x-2">
+                    <i class="fas fa-star mt-1 text-xs"></i>
+                    <span class="text-sm">Exclusive concierge-like digital experience</span>
+                  </li>
+                </ul>
+              </div>
             </div>
+          </div>
 
-            <!-- Q.2 -->
-            <div class="question-card bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="bg-orange-600 text-white p-6">
-                    <h2 class="text-2xl font-bold">Q.2 [14 Marks]</h2>
+          <div class="bg-white rounded-lg p-8 shadow-sm border">
+            <h3 class="serif text-2xl font-semibold mb-6">Proven Best Practices to Implement</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold mb-4 text-blue-600">
+                  <i class="fas fa-user-plus mr-2"></i>Hybrid Onboarding Model
+                </h4>
+                <p class="text-gray-600 mb-4">Combine digital efficiency with personalized human interaction, particularly effective for HNWIs who value both convenience and expert guidance.</p>
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <h5 class="font-medium mb-2">Key Features:</h5>
+                  <ul class="text-sm space-y-1 text-blue-700">
+                    <li>• Singpass integration for Singaporean users</li>
+                    <li>• Automated identity verification</li>
+                    <li>• Scheduled advisor consultations</li>
+                    <li>• Progressive disclosure forms</li>
+                  </ul>
                 </div>
-                
-                <!-- Q.2 (a) -->
-                <div class="border-b border-gray-200">
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (a) Define the term in briefly: [3 Marks]
-                            <br><span class="text-sm text-gray-500">(i) Open Port Identification (ii) Banner Check</span>
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <!-- Open Port Identification -->
-                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                    <h4 class="font-bold text-blue-600 mb-3">(i) Open Port Identification</h4>
-                                    <div class="space-y-2 text-sm text-gray-700">
-                                        <p><strong>What it is:</strong> Checking which doors (ports) are open on a computer system to see what services are running.</p>
-                                        
-                                        <div class="bg-white p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-gray-800 mb-2">Why it's important:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li>Finds security weaknesses</li>
-                                                <li>Identifies running services</li>
-                                                <li>Helps in security assessment</li>
-                                                <li>Detects unauthorized services</li>
-                                            </ul>
-                                        </div>
+              </div>
 
-                                        <div class="bg-yellow-100 p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-yellow-800">Example:</h5>
-                                            <p>Port 80 (HTTP) open = Web server running<br>
-                                            Port 22 (SSH) open = Remote access available</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Banner Check -->
-                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                                    <h4 class="font-bold text-green-600 mb-3">(ii) Banner Check</h4>
-                                    <div class="space-y-2 text-sm text-gray-700">
-                                        <p><strong>What it is:</strong> Reading the welcome message (banner) that services show when you connect to them. It's like reading a nameplate on an office door.</p>
-                                        
-                                        <div class="bg-white p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-gray-800 mb-2">What banners reveal:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li>Software name and version</li>
-                                                <li>Operating system details</li>
-                                                <li>Service configuration</li>
-                                                <li>Server information</li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="bg-purple-100 p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-purple-800">Security Risk:</h5>
-                                            <p>Banners can give attackers information about vulnerabilities in specific software versions, helping them plan attacks.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+              <div>
+                <h4 class="font-semibold mb-4 text-green-600">
+                  <i class="fas fa-cloud-upload-alt mr-2"></i>Modern Document Upload
+                </h4>
+                <p class="text-gray-600 mb-4">Implement intuitive document upload with drag-and-drop functionality, progress indicators, and real-time validation to reduce friction.</p>
+                <div class="bg-green-50 rounded-lg p-4">
+                  <h5 class="font-medium mb-2">Best Practices:</h5>
+                  <ul class="text-sm space-y-1 text-green-700">
+                    <li>• Support multiple file formats (PDF, JPEG, XLS)</li>
+                    <li>• Clear progress indicators</li>
+                    <li>• Real-time file validation</li>
+                    <li>• Secure cloud storage integration</li>
+                  </ul>
                 </div>
-
-                <!-- Q.2 (b) -->
-                <div class="border-b border-gray-200">
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (b) What is Probe? Explain its different types. [4 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
-                                <h4 class="font-bold text-red-600 mb-2">What is a Probe?</h4>
-                                <p class="text-gray-700 text-sm">A probe is like a scout or detective that gathers information about a computer system or network. It's a tool or technique used to explore and collect data about target systems.</p>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <!-- Active Probes -->
-                                <div class="bg-blue-50 p-4 rounded-lg">
-                                    <h4 class="font-bold text-blue-600 mb-3">Active Probes</h4>
-                                    <div class="space-y-2 text-sm text-gray-700">
-                                        <p><strong>Definition:</strong> Directly interact with the target system to get information.</p>
-                                        
-                                        <div class="bg-white p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-gray-800 mb-2">Types:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li><strong>Ping Probe:</strong> Checks if system is alive</li>
-                                                <li><strong>Port Scan:</strong> Finds open ports and services</li>
-                                                <li><strong>Version Detection:</strong> Identifies software versions</li>
-                                                <li><strong>OS Detection:</strong> Determines operating system</li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="bg-yellow-100 p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-yellow-800">Characteristics:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li>More accurate information</li>
-                                                <li>Can be detected by target</li>
-                                                <li>May trigger security alerts</li>
-                                                <li>Direct interaction required</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Passive Probes -->
-                                <div class="bg-green-50 p-4 rounded-lg">
-                                    <h4 class="font-bold text-green-600 mb-3">Passive Probes</h4>
-                                    <div class="space-y-2 text-sm text-gray-700">
-                                        <p><strong>Definition:</strong> Observe network traffic without directly interacting with the target.</p>
-                                        
-                                        <div class="bg-white p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-gray-800 mb-2">Types:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li><strong>Traffic Analysis:</strong> Studies communication patterns</li>
-                                                <li><strong>Packet Sniffing:</strong> Captures network packets</li>
-                                                <li><strong>DNS Monitoring:</strong> Watches DNS queries</li>
-                                                <li><strong>Social Engineering:</strong> Gathers information from people</li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="bg-purple-100 p-3 rounded mt-3">
-                                            <h5 class="font-semibold text-purple-800">Characteristics:</h5>
-                                            <ul class="list-disc list-inside space-y-1">
-                                                <li>Harder to detect</li>
-                                                <li>Less accurate information</li>
-                                                <li>Doesn't trigger alerts</li>
-                                                <li>Indirect information gathering</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Q.2 (c) -->
-                <div>
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (c) List and explain types of Network Sniffer. List Network Sniffers and Injection tools. [7 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
-                                <h4 class="font-bold text-red-600 mb-2">Network Sniffer</h4>
-                                <p class="text-gray-700 text-sm">A network sniffer is like a wiretap for computer networks. It captures and analyzes data traveling through a network, helping administrators troubleshoot problems or attackers steal information.</p>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <!-- Types of Network Sniffers -->
-                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                    <h4 class="font-bold text-blue-600 mb-3">Types of Network Sniffers</h4>
-                                    <div class="space-y-3 text-sm text-gray-700">
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">1. Passive Sniffers</h5>
-                                            <p>Only capture traffic without interfering. Like a security camera that just records.</p>
-                                            <div class="mt-2 text-xs bg-gray-100 p-2 rounded">
-                                                <strong>Use:</strong> Network monitoring and troubleshooting
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">2. Active Sniffers</h5>
-                                            <p>Inject packets into network to gather more information. Like asking questions to get answers.</p>
-                                            <div class="mt-2 text-xs bg-gray-100 p-2 rounded">
-                                                <strong>Use:</strong> Security testing and network discovery
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">3. Filter-Based Sniffers</h5>
-                                            <p>Capture only specific types of traffic based on rules. Like a filter that only catches fish of certain size.</p>
-                                            <div class="mt-2 text-xs bg-gray-100 p-2 rounded">
-                                                <strong>Use:</strong> Targeted monitoring and analysis
-                                            </div>
-                                        </div>
-
-                                        <div class="bg-white p-3 rounded">
-                                            <h5 class="font-semibold text-gray-800">4. Protocol Analyzers</h5>
-                                            <p>Deep inspection of specific protocols. Like a translator for network languages.</p>
-                                            <div class="mt-2 text-xs bg-gray-100 p-2 rounded">
-                                                <strong>Use:</strong> Protocol debugging and security analysis
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Tools -->
-                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                                    <h4 class="font-bold text-green-600 mb-3">Network Sniffers & Injection Tools</h4>
-                                    
-                                    <div class="mb-4">
-                                        <h5 class="font-semibold text-gray-800 mb-2">Network Sniffers:</h5>
-                                        <div class="grid grid-cols-2 gap-2 text-sm">
-                                            <div class="bg-white p-2 rounded border">Wireshark</div>
-                                            <div class="bg-white p-2 rounded border">tcpdump</div>
-                                            <div class="bg-white p-2 rounded border">Nmap</div>
-                                            <div class="bg-white p-2 rounded border">Ethereal</div>
-                                            <div class="bg-white p-2 rounded border">Kismet</div>
-                                            <div class="bg-white p-2 rounded border">AirSnort</div>
-                                            <div class="bg-white p-2 rounded border">Cain & Abel</div>
-                                            <div class="bg-white p-2 rounded border">Ettercap</div>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <h5 class="font-semibold text-gray-800 mb-2">Injection Tools:</h5>
-                                        <div class="grid grid-cols-2 gap-2 text-sm">
-                                            <div class="bg-white p-2 rounded border">Netcat</div>
-                                            <div class="bg-white p-2 rounded border">Hping</div>
-                                            <div class="bg-white p-2 rounded border">Scapy</div>
-                                            <div class="bg-white p-2 rounded border">Nemesis</div>
-                                            <div class="bg-white p-2 rounded border">Socat</div>
-                                            <div class="bg-white p-2 rounded border">Packet Sender</div>
-                                            <div class="bg-white p-2 rounded border">Colasoft</div>
-                                            <div class="bg-white p-2 rounded border">Ostinato</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-
-            <!-- Continue with Q.5 - Key Security Concepts -->
-            <div class="question-card bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="bg-purple-600 text-white p-6">
-                    <h2 class="text-2xl font-bold">Q.5 [14 Marks]</h2>
-                </div>
-                
-                <!-- Q.5 (a) -->
-                <div class="border-b border-gray-200">
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (a) What is Brute-Force Attack? How it can be prevented? [3 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="bg-white p-4 rounded-lg shadow-sm">
-                                <h4 class="font-bold text-red-600 mb-3">Brute-Force Attack</h4>
-                                <div class="space-y-3 text-sm text-gray-700">
-                                    <p><strong>What it is:</strong> A brute-force attack is like trying every possible key to open a lock. The attacker systematically tries all possible combinations of passwords or encryption keys until they find the correct one.</p>
-                                    
-                                    <div class="bg-red-50 p-3 rounded">
-                                        <h5 class="font-semibold text-red-800 mb-2">How it works:</h5>
-                                        <ul class="list-disc list-inside space-y-1">
-                                            <li>Automated tools try thousands of passwords per second</li>
-                                            <li>Starts with common passwords (123456, password)</li>
-                                            <li>Tries dictionary words, then random combinations</li>
-                                            <li>Continues until correct password is found</li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="bg-green-50 p-3 rounded">
-                                        <h5 class="font-semibold text-green-800 mb-2">Prevention Methods:</h5>
-                                        <div class="grid md:grid-cols-2 gap-2">
-                                            <div class="bg-white p-2 rounded">
-                                                <strong>Strong Passwords:</strong> Use long, complex passwords with mixed characters
-                                            </div>
-                                            <div class="bg-white p-2 rounded">
-                                                <strong>Account Lockout:</strong> Lock account after failed attempts
-                                            </div>
-                                            <div class="bg-white p-2 rounded">
-                                                <strong>CAPTCHA:</strong> Add human verification challenges
-                                            </div>
-                                            <div class="bg-white p-2 rounded">
-                                                <strong>Two-Factor Auth:</strong> Require second verification method
-                                            </div>
-                                            <div class="bg-white p-2 rounded">
-                                                <strong>Rate Limiting:</strong> Slow down repeated attempts
-                                            </div>
-                                            <div class="bg-white p-2 rounded">
-                                                <strong>Password Managers:</strong> Generate and store complex passwords
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Q.5 (c) -->
-                <div>
-                    <div class="p-6">
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-                            (c) Explain how SQL Injection attacks can be prevented. [7 Marks]
-                        </h3>
-                        <div class="answer-section p-4 rounded-lg">
-                            <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
-                                <h4 class="font-bold text-red-600 mb-2">SQL Injection Prevention</h4>
-                                <p class="text-gray-700 text-sm">SQL injection is like someone sneaking commands into a conversation to trick the database. Prevention methods are like security checks to ensure only valid requests reach the database.</p>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <!-- Prevention Techniques -->
-                                <div class="space-y-4">
-                                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                                        <h4 class="font-bold text-blue-600 mb-2">1. Input Validation</h4>
-                                        <p class="text-sm text-gray-700">Check all user input before processing. Like security screening at airports.</p>
-                                        <div class="mt-2 text-xs bg-white p-2 rounded">
-                                            <strong>Methods:</strong> Whitelist allowed characters, validate data types, check length limits
-                                        </div>
-                                    </div>
-
-                                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
-                                        <h4 class="font-bold text-green-600 mb-2">2. Parameterized Queries</h4>
-                                        <p class="text-sm text-gray-700">Use placeholders instead of directly inserting user input into SQL queries.</p>
-                                        <div class="mt-2 text-xs bg-white p-2 rounded">
-                                            <strong>Example:</strong> "SELECT * FROM users WHERE id = ?" instead of "SELECT * FROM users WHERE id = " + userInput
-                                        </div>
-                                    </div>
-
-                                    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500">
-                                        <h4 class="font-bold text-purple-600 mb-2">3. Stored Procedures</h4>
-                                        <p class="text-sm text-gray-700">Use pre-defined database procedures that don't accept raw SQL.</p>
-                                        <div class="mt-2 text-xs bg-white p-2 rounded">
-                                            <strong>Benefit:</strong> Separates application logic from database queries
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Additional Measures -->
-                                <div class="space-y-4">
-                                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
-                                        <h4 class="font-bold text-yellow-600 mb-2">4. Least Privilege</h4>
-                                        <p class="text-sm text-gray-700">Give database users only the minimum permissions they need.</p>
-                                        <div class="mt-2 text-xs bg-white p-2 rounded">
-                                            <strong>Example:</strong> Read-only access for display pages, no delete permissions for normal users
-                                        </div>
-                                    </div>
-
-                                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
-                                        <h4 class="font-bold text-red-600 mb-2">5. Web Application Firewall (WAF)</h4>
-                                        <p class="text-sm text-gray-700">Firewall that specifically protects against web-based attacks.</p>
-                                        <div class="mt-2 text-xs bg-white p-2 rounded">
-                                            <strong>Function:</strong> Filters and monitors HTTP traffic between web application and internet
-                                        </div>
-                                    </div>
-
-                                    <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500">
-                                        <h4 class="font-bold text-indigo-600 mb-2">6. Regular Security Testing</h4>
-                                        <p class="text-sm text-gray-700">Continuously test applications for vulnerabilities.</p>
-                                        <div class="mt-2 text-xs bg-white p-2 rounded">
-                                            <strong>Methods:</strong> Penetration testing, code reviews, automated security scanning
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 bg-gray-100 p-4 rounded-lg">
-                                <h4 class="font-bold text-gray-800 mb-2">Best Practices Summary:</h4>
-                                <div class="grid md:grid-cols-3 gap-4 text-sm text-gray-700">
-                                    <div class="bg-white p-3 rounded">
-                                        <strong>Never trust user input</strong><br>
-                                        Always validate and sanitize
-                                    </div>
-                                    <div class="bg-white p-3 rounded">
-                                        <strong>Use prepared statements</strong><br>
-                                        Separate code from data
-                                    </div>
-                                    <div class="bg-white p-3 rounded">
-                                        <strong>Implement multiple layers</strong><br>
-                                        Defense in depth approach
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </section>
 
-        <!-- Back to Top Button -->
-        <div class="fixed bottom-8 right-8">
-            <button onclick="scrollToTop()" class="bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors">
-                <i class="fas fa-arrow-up"></i>
-            </button>
+      <div class="section-divider"></div>
+
+      <!-- Feature Ideation Vault -->
+      <section id="feature-ideation" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Feature Ideation Vault</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+            <p class="text-gray-600 mt-4">Ranked by Implementation Effort vs. Business Value</p>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Quick Wins -->
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-rocket text-green-600 text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="serif text-xl font-semibold">Quick Wins</h3>
+                  <p class="text-sm text-gray-500">High-Value, Low-Effort</p>
+                </div>
+              </div>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold mb-2">Singpass Integration</h4>
+                  <p class="text-sm text-gray-600 mb-2">Secure identity verification for Singaporean users</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Value: High</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Effort: Low</span>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold mb-2">Progress Indicators</h4>
+                  <p class="text-sm text-gray-600 mb-2">Clear visual guidance through application forms</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Value: High</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Effort: Low</span>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold mb-2">Live Chat Support</h4>
+                  <p class="text-sm text-gray-600 mb-2">Immediate assistance for potential clients</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Value: High</span>
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded">Effort: Low</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Strategic Initiatives -->
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-chess-queen text-blue-600 text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="serif text-xl font-semibold">Strategic Initiatives</h3>
+                  <p class="text-sm text-gray-500">High-Value, High-Effort</p>
+                </div>
+              </div>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold mb-2">AI Financial Health Score</h4>
+                  <p class="text-sm text-gray-600 mb-2">Real-time SME financial health assessment</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Value: High</span>
+                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">Effort: High</span>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold mb-2">Investment Matching Engine</h4>
+                  <p class="text-sm text-gray-600 mb-2">ML-powered opportunity recommendations</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Value: High</span>
+                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">Effort: High</span>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold mb-2">Interactive Planning Tools</h4>
+                  <p class="text-sm text-gray-600 mb-2">Retirement calculators and cash flow projectors</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded">Value: High</span>
+                    <span class="bg-orange-100 text-orange-800 px-2 py-1 rounded">Effort: High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Future Innovations -->
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                  <i class="fas fa-lightbulb text-purple-600 text-xl"></i>
+                </div>
+                <div>
+                  <h3 class="serif text-xl font-semibold">Future Innovations</h3>
+                  <p class="text-sm text-gray-500">Long-term Opportunities</p>
+                </div>
+              </div>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-purple-500 pl-4">
+                  <h4 class="font-semibold mb-2">Embedded Finance Solutions</h4>
+                  <p class="text-sm text-gray-600 mb-2">Integrate financing directly into business platforms<a href="#ref-307" class="citation">307</a>
+                  </p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded">Value: Future</span>
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded">Effort: High</span>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                  <h4 class="font-semibold mb-2">Blockchain Document Verification</h4>
+                  <p class="text-sm text-gray-600 mb-2">Secure immutable document records</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded">Value: Future</span>
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded">Effort: High</span>
+                  </div>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                  <h4 class="font-semibold mb-2">Predictive Credit Analytics</h4>
+                  <p class="text-sm text-gray-600 mb-2">Advanced risk assessment models</p>
+                  <div class="flex space-x-4 text-xs">
+                    <span class="bg-purple-100 text-purple-800 px-2 py-1 rounded">Value: Future</span>
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded">Effort: High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- UX Strategy -->
+      <section id="ux-strategy" class="py-16">
+        <div class="max-w-6xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Design &amp; User Experience Strategy</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+
+          <div class="mb-12">
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <h3 class="serif text-2xl font-semibold mb-6">Design Philosophy for HNWI &amp; SME Audiences</h3>
+
+              <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-alt text-blue-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold mb-3">Trust &amp; Credibility</h4>
+                  <p class="text-sm text-gray-600">Convey security, professionalism, and expertise through clean layouts and transparent communication</p>
+                </div>
+
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-eye text-green-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold mb-3">Clarity &amp; Simplicity</h4>
+                  <p class="text-sm text-gray-600">Intuitive navigation and simple language to reduce cognitive load and improve accessibility</p>
+                </div>
+
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-gem text-purple-600 text-2xl"></i>
+                  </div>
+                  <h4 class="font-semibold mb-3">Exclusivity</h4>
+                  <p class="text-sm text-gray-600">Premium design elements and personalized experiences for HNWI segment</p>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="font-semibold mb-4 text-blue-600">Mobile-First Approach</h4>
+                  <p class="text-gray-600 mb-4">Essential for modern financial platforms with increasing mobile usage</p>
+                  <ul class="text-sm space-y-2 text-gray-700">
+                    <li>• Design for smallest screen first</li>
+                    <li>• Fast loading times under 3 seconds</li>
+                    <li>• Touch-friendly interactions</li>
+                    <li>• Thumb-friendly navigation</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold mb-4 text-green-600">Data Visualization</h4>
+                  <p class="text-gray-600 mb-4">Present complex financial information in clear, digestible formats</p>
+                  <ul class="text-sm space-y-2 text-gray-700">
+                    <li>• Interactive charts and graphs</li>
+                    <li>• Customizable dashboard widgets</li>
+                    <li>• Strategic color usage</li>
+                    <li>• Accessibility compliance (WCAG)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Implementation Roadmap -->
+      <section id="implementation" class="py-16 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-8">
+          <div class="text-center mb-12">
+            <h2 class="serif text-4xl font-bold mb-4">Implementation Roadmap</h2>
+            <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            <!-- Phase 1 -->
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                  <span class="text-green-600 font-bold">P1</span>
+                </div>
+                <div>
+                  <h3 class="serif text-xl font-semibold">Foundation &amp; Quick Wins</h3>
+                  <p class="text-sm text-gray-500">Timeline: 2-3 months</p>
+                </div>
+              </div>
+
+              <div class="space-y-4 mb-6">
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Comprehensive Website Audit</h4>
+                    <p class="text-xs text-gray-500">User behavior analysis &amp; information architecture</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Singpass Integration</h4>
+                    <p class="text-xs text-gray-500">Singaporean user verification</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Progress Indicators</h4>
+                    <p class="text-xs text-gray-500">Application form guidance</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Live Chat Support</h4>
+                    <p class="text-xs text-gray-500">Immediate customer assistance</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-4">
+                <h5 class="font-semibold text-green-800 mb-2">Expected Outcomes:</h5>
+                <ul class="text-sm space-y-1 text-green-700">
+                  <li>• Reduced application abandonment</li>
+                  <li>• Improved user engagement</li>
+                  <li>• Enhanced mobile experience</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                  <span class="text-blue-600 font-bold">P2</span>
+                </div>
+                <div>
+                  <h3 class="serif text-xl font-semibold">Core Feature Development</h3>
+                  <p class="text-sm text-gray-500">Timeline: 4-6 months</p>
+                </div>
+              </div>
+
+              <div class="space-y-4 mb-6">
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Redesigned Onboarding Flow</h4>
+                    <p class="text-xs text-gray-500">Hybrid digital-human experience</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Document Upload System</h4>
+                    <p class="text-xs text-gray-500">Drag-and-drop functionality</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">New Dashboard Layout</h4>
+                    <p class="text-xs text-gray-500">Goal-based user interfaces</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Visual Design Overhaul</h4>
+                    <p class="text-xs text-gray-500">Modern mobile-first experience</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-blue-50 rounded-lg p-4">
+                <h5 class="font-semibold text-blue-800 mb-2">Expected Outcomes:</h5>
+                <ul class="text-sm space-y-1 text-blue-700">
+                  <li>• Increased conversion rates</li>
+                  <li>• Enhanced user satisfaction</li>
+                  <li>• Improved brand perception</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="bg-white rounded-lg p-8 shadow-sm border">
+              <div class="flex items-center mb-6">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                  <span class="text-purple-600 font-bold">P3</span>
+                </div>
+                <div>
+                  <h3 class="serif text-xl font-semibold">Advanced Features</h3>
+                  <p class="text-sm text-gray-500">Timeline: Ongoing</p>
+                </div>
+              </div>
+
+              <div class="space-y-4 mb-6">
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">AI-Powered Recommendations</h4>
+                    <p class="text-xs text-gray-500">Personalized financial advice</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Financial Planning Tools</h4>
+                    <p class="text-xs text-gray-500">Interactive calculators &amp; simulators</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Embedded Finance Solutions</h4>
+                    <p class="text-xs text-gray-500">Platform integration capabilities</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-purple-500 rounded-full mt-2"></div>
+                  <div>
+                    <h4 class="font-semibold text-sm">Continuous Optimization</h4>
+                    <p class="text-xs text-gray-500">A/B testing &amp; user feedback</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-purple-50 rounded-lg p-4">
+                <h5 class="font-semibold text-purple-800 mb-2">Expected Outcomes:</h5>
+                <ul class="text-sm space-y-1 text-purple-700">
+                  <li>• Market leadership position</li>
+                  <li>• Sustainable competitive advantage</li>
+                  <li>• Long-term client retention</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPIs -->
+          <div class="bg-white rounded-lg p-8 shadow-sm border">
+            <h3 class="serif text-2xl font-semibold mb-6">Key Performance Indicators (KPIs) for Success</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold mb-4 text-blue-600">Conversion Metrics</h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Qualified Lead Generation</span>
+                    <div class="text-right">
+                      <div class="font-semibold">25% increase</div>
+                      <div class="text-xs text-gray-500">Within 6 months</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Application Completion Rate</span>
+                    <div class="text-right">
+                      <div class="font-semibold">15% increase</div>
+                      <div class="text-xs text-gray-500">Within 6 months</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold mb-4 text-green-600">User Experience Metrics</h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Bounce Rate Reduction</span>
+                    <div class="text-right">
+                      <div class="font-semibold">10% decrease</div>
+                      <div class="text-xs text-gray-500">Within 3 months</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Session Duration</span>
+                    <div class="text-right">
+                      <div class="font-semibold">20% increase</div>
+                      <div class="text-xs text-gray-500">Within 3 months</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Mobile Engagement</span>
+                    <div class="text-right">
+                      <div class="font-semibold">15% increase</div>
+                      <div class="text-xs text-gray-500">Within 3 months</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold mb-4 text-purple-600">Technical Performance</h4>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Page Load Speed</span>
+                    <div class="text-right">
+                      <div class="font-semibold">&lt; 3 seconds</div>
+                      <div class="text-xs text-gray-500">All key pages</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-sm">Mobile Usability</span>
+                    <div class="text-right">
+                      <div class="font-semibold">95+ score</div>
+                      <div class="text-xs text-gray-500">Google Mobile-Friendly Test</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold mb-4 text-orange-600">Success Measurement</h4>
+                <div class="bg-orange-50 rounded-lg p-4">
+                  <p class="text-sm text-orange-800">
+                    All KPIs will be tracked using Google Analytics 4, supplemented with custom event tracking and user feedback surveys. Monthly performance reviews will ensure continuous optimization.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- References -->
+      <section class="py-12 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-8">
+          <h3 class="serif text-2xl font-semibold mb-6">References</h3>
+          <div class="grid md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <p id="ref-3"><strong>[3]</strong>
+                <a href="https://sg.linkedin.com/company/ascendant-globalcredit-group-pte-ltd" class="text-blue-600 hover:underline">LinkedIn - Ascendant Global Credit Group</a>
+              </p>
+              <p id="ref-199"><strong>[199]</strong>
+                <a href="https://www.dbs.com.sg/personal/support/card-application-documents.html" class="text-blue-600 hover:underline">DBS - Card Application Documents</a>
+              </p>
+              <p id="ref-201"><strong>[201]</strong>
+                <a href="https://trillioncredit.com.sg/how-to-apply-for-an-sme-loan-in-singapore-step-by-step-guide/" class="text-blue-600 hover:underline">Trillion Credit - SME Loan Guide</a>
+              </p>
+              <p id="ref-307"><strong>[307]</strong>
+                <a href="https://www.ascendantglobalcreditgroup.com/insights/embedded-finance-instant-liquidity-for-businesses-within-their-workflows" class="text-blue-600 hover:underline">Ascendant - Embedded Finance Insights</a>
+              </p>
+              <p id="ref-314"><strong>[314]</strong>
+                <a href="https://hyperverge.co/blog/kyc-best-practices/" class="text-blue-600 hover:underline">HyperVerge - KYC Best Practices</a>
+              </p>
+              <p id="ref-320"><strong>[320]</strong>
+                <a href="https://www.easyglobalbanking.com/alternative-banking-hubs/best-private-banks-hnwis-switzerland-singapore-usa-uk/" class="text-blue-600 hover:underline">EasyGlobalBanking - Private Banks Guide</a>
+              </p>
+              <p id="ref-326"><strong>[326]</strong>
+                <a href="https://www.onething.design/post/digital-onboarding-designing-for-banks-fintechs" class="text-blue-600 hover:underline">OneThing Design - Digital Onboarding</a>
+              </p>
+              <p id="ref-333"><strong>[333]</strong>
+                <a href="https://windmill.digital/six-wealthtech-apps-with-outstanding-ux/" class="text-blue-600 hover:underline">Windmill - WealthTech UX Guide</a>
+              </p>
+              <p id="ref-336"><strong>[336]</strong>
+                <a href="https://artafinance.com/global/insights/behind-the-design-lu-de-pasquale" class="text-blue-600 hover:underline">Arta Finance - Design Insights</a>
+              </p>
+              <p id="ref-340"><strong>[340]</strong>
+                <a href="https://vyzer.co/blog/knowledgebase/the-best-private-market-financial-dashboards-for-hnwis" class="text-blue-600 hover:underline">Vyzer - Financial Dashboards Guide</a>
+              </p>
+            </div>
+            <div>
+              <p id="ref-341"><strong>[341]</strong>
+                <a href="https://theuxda.com/blog/ux-case-study-bugatti-caliber-experience-uhnwi-200-billion-assets" class="text-blue-600 hover:underline">UXDA - Bugatti Caliber Experience</a>
+              </p>
+              <p id="ref-345"><strong>[345]</strong>
+                <a href="https://www.ascendantglobalcreditgroup.com/" class="text-blue-600 hover:underline">Ascendant Global Credit Group</a>
+              </p>
+              <p id="ref-347"><strong>[347]</strong>
+                <a href="https://www.kilde.sg/investing/private-credit-investing-guide-singapore" class="text-blue-600 hover:underline">Kilde - Private Credit Guide</a>
+              </p>
+              <p id="ref-354"><strong>[354]</strong>
+                <a href="https://www.ascendantglobalcreditgroup.com/insights/what-does-a-financial-introducer-do-singapore" class="text-blue-600 hover:underline">Ascendant - Financial Introducer Guide</a>
+              </p>
+              <p id="ref-356"><strong>[356]</strong>
+                <a href="https://uxdesign.cc/ocbc-mobile-banking-ux-case-study-the-redesigned-apps-14d40a22598e" class="text-blue-600 hover:underline">UXDesign - OCBC Mobile Banking Case Study</a>
+              </p>
+              <p id="ref-361"><strong>[361]</strong>
+                <a href="https://www.ascendantglobalcreditgroup.com/business-financing-sme" class="text-blue-600 hover:underline">Ascendant - SME Financing</a>
+              </p>
+              <p id="ref-363"><strong>[363]</strong>
+                <a href="https://www.moneysmart.sg/" class="text-blue-600 hover:underline">MoneySmart Singapore</a>
+              </p>
+              <p id="ref-368"><strong>[368]</strong>
+                <a href="https://www.capgemini.com/insights/research-library/gaining-hnwi-market-share-embracing-ai-powered-behavioral-finance/" class="text-blue-600 hover:underline">Capgemini - HNWI Market Share Report</a>
+              </p>
+              <p id="ref-371"><strong>[371]</strong>
+                <a href="https://www.dbs.com.sg/sme/trade/related-services/trade-document-upload" class="text-blue-600 hover:underline">DBS - Trade Document Upload</a>
+              </p>
+              <p id="ref-444"><strong>[444]</strong>
+                <a href="https://procreator.design/blog/fintech-dashboards-lessons-singapores-firms/" class="text-blue-600 hover:underline">Procreator - Fintech Dashboards Guide</a>
+              </p>
+              <p id="ref-446"><strong>[446]</strong>
+                <a href="https://sgmark.org/winners/ocbc-mobile-banking-dashboard/" class="text-blue-600 hover:underline">Singapore Good Design - OCBC Mobile Dashboard</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-8 text-center">
+          <div class="mb-8">
+            <h3 class="serif text-2xl font-semibold mb-2">Ascendant Global Credit Group</h3>
+            <p class="text-gray-300">Redefining Financial Services Through Digital Excellence</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8 mb-8">
+            <div>
+              <h4 class="font-semibold mb-3">Our Mission</h4>
+              <p class="text-sm text-gray-400">To connect sophisticated investors and businesses with premier financial opportunities through innovative digital experiences.</p>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Target Segments</h4>
+              <ul class="text-sm text-gray-400 space-y-1">
+                <li>High-Net-Worth Individuals</li>
+                <li>Accredited Investors</li>
+                <li>SMEs &amp; Businesses</li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-3">Core Values</h4>
+              <ul class="text-sm text-gray-400 space-y-1">
+                <li>Trust &amp; Security</li>
+                <li>Innovation &amp; Excellence</li>
+                <li>Personalized Service</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="border-t border-gray-700 pt-8">
+            <p class="text-sm text-gray-400">
+              This redesign strategy represents our commitment to delivering exceptional digital experiences while maintaining the highest standards of security and personalized service.
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p class="text-gray-400">&copy; 2024 GTU Study Guide - Cyber Security. Designed for easy learning.</p>
-        </div>
-    </footer>
-
     <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active TOC link highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
             });
         });
     </script>
-</body>
-</html>
+  
+
+</body></html>
